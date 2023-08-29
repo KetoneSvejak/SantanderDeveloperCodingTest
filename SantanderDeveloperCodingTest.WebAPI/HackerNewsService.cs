@@ -2,14 +2,15 @@
 
 namespace SantanderDeveloperCodingTest.WebAPI
 {
-    public class HackerNewsHttpClient
+    public class HackerNewsService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public HackerNewsHttpClient(IHttpClientFactory httpClientFactory)
+        public HackerNewsService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         }
+
         public async Task<int[]?> GetBestStoriesAsync()
         {
             using (var httpClient = _httpClientFactory.CreateClient())

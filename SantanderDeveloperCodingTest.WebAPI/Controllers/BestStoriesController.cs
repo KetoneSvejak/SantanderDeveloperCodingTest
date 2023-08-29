@@ -27,7 +27,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
             if (n <= 0 || n > 500)
                 throw new ArgumentOutOfRangeException(nameof(n));
 
-            var hackerNewsHttpClient = new HackerNewsHttpClient(_httpClientFactory);
+            var hackerNewsHttpClient = new HackerNewsService(_httpClientFactory);
             var bestStories = await hackerNewsHttpClient.GetBestStoriesAsync();
             if (bestStories == null)
                 return Array.Empty<BestStory>();
@@ -37,7 +37,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
             return response;
         }
 
-        private static async Task<BestStory> GetBestStoryDetailsAsync(HackerNewsHttpClient hackerNewsHttpClient, int id)
+        private static async Task<BestStory> GetBestStoryDetailsAsync(HackerNewsService hackerNewsHttpClient, int id)
         {
             var bestStoryDetails = await hackerNewsHttpClient.GetBestStoryDetailsAsync(id);
             if (bestStoryDetails == null)
