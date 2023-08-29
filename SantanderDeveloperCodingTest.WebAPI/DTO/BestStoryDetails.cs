@@ -1,5 +1,6 @@
 ﻿namespace SantanderDeveloperCodingTest.WebAPI.DTO
 {
+    // TODO: perhaps some fields can be ommited to speed up parsing
     public class BestStoryDetails
     {
         private static readonly DateTime UnixDateTimeStart = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
