@@ -37,6 +37,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
             var bestStories = await hackerNewsHttpClient.GetBestStoriesAsync();
             if (bestStories == null)
                 return Array.Empty<BestStory>();
+            await InvalidateCachedItemsAsync(hackerNewsHttpClient);
             var getDetailsForAllStories = bestStories.Take(n).Select(async id => await GetBestStoryDetailsAsync(hackerNewsHttpClient, id));
             var response = await Task.WhenAll(getDetailsForAllStories);
             var sortedResponse = response.OrderByDescending(s => s?.Score).ToArray();
@@ -65,6 +66,14 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
                 Uri = bestStoryDetails.Url
             };
             return bestStory;
+        }
+
+        private async Task InvalidateCachedItemsAsync(HackerNewsService hackerNewsHttpClient)
+        {
+            var ids = await hackerNewsHttpClient.GetUpdatedItems();
+            if (ids != null)
+                foreach (var id in ids)
+                    _memoryCache.Remove(id);
         }
     }
 }
