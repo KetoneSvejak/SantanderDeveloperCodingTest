@@ -37,7 +37,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
             return response;
         }
 
-        public async Task<BestStory> GetBestStoryDetailsAsync(HackerNewsHttpClient hackerNewsHttpClient, int id)
+        private static async Task<BestStory> GetBestStoryDetailsAsync(HackerNewsHttpClient hackerNewsHttpClient, int id)
         {
             var bestStoryDetails = await hackerNewsHttpClient.GetBestStoryDetailsAsync(id);
             if (bestStoryDetails == null)
