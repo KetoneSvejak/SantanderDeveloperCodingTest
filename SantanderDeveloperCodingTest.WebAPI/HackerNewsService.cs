@@ -31,5 +31,21 @@ namespace SantanderDeveloperCodingTest.WebAPI
                 return response;
             }
         }
+
+        /// <summary>
+        /// Get ids of changed items.
+        /// https://github.com/HackerNews/API/tree/master#changed-items-and-profiles . 
+        /// </summary>
+        /// <returns>ids of changed items</returns>
+        public async Task<int[]?> GetUpdatedItems()
+        {
+            using (var httpClient = _httpClientFactory.CreateClient())
+            {
+                var uri = $"https://hacker-news.firebaseio.com/v0/updates.json";
+                var bestStories = await httpClient.GetAsync(uri);
+                var response = await bestStories.Content.ReadFromJsonAsync<UpdatesResponse>();
+                return response?.Items;
+            }
+        }
     }
 }
