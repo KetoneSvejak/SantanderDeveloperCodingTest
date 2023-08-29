@@ -7,11 +7,12 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
     [Route("[controller]")]
     public class BestStoriesController : ControllerBase
     {
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<BestStoriesController> _logger;
-
-        public BestStoriesController(ILogger<BestStoriesController> logger)
+        public BestStoriesController(ILogger<BestStoriesController> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
+            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         }
 
         /// <summary>
@@ -22,7 +23,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
         [HttpGet(Name = "GetBestStories")]
         public async Task<IEnumerable<BestStory>> Get(int n)
         {
-            var hackerNewsHttpClient = new HackerNewsHttpClient();
+            var hackerNewsHttpClient = new HackerNewsHttpClient(_httpClientFactory);
             var bestStories = await hackerNewsHttpClient.GetBestStoriesAsync();
             if (bestStories == null)
                 return new BestStory[0];
@@ -40,7 +41,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
             var bestStory = new BestStory
             {
                 CommentCount = (bestStoryDetails.Kids == null || bestStoryDetails.Kids.Length <= 0) ? 0 : bestStoryDetails.Kids.Length,
-                PostedBy =bestStoryDetails.By,
+                PostedBy = bestStoryDetails.By,
                 Score = bestStoryDetails.Score,
                 time = bestStoryDetails.TimeAsDateTime,
                 Title = bestStoryDetails.Title,
