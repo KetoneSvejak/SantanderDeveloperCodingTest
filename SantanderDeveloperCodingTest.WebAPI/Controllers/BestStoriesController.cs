@@ -26,7 +26,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
             var hackerNewsHttpClient = new HackerNewsHttpClient(_httpClientFactory);
             var bestStories = await hackerNewsHttpClient.GetBestStoriesAsync();
             if (bestStories == null)
-                return new BestStory[0];
+                return Array.Empty<BestStory>();
             var getDetailsForAllStories = bestStories.Take(n).Select(async id => await GetBestStoryDetailsAsync(hackerNewsHttpClient, id));
             var response = await Task.WhenAll(getDetailsForAllStories);
             var sortedResponse = response.OrderByDescending(s => s.Score).ToArray();
@@ -35,7 +35,6 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
 
         private async Task<BestStory> GetBestStoryDetailsAsync(HackerNewsHttpClient hackerNewsHttpClient, int id)
         {
-            var random = new Random();
             var bestStoryDetails = await hackerNewsHttpClient.GetBestStoryDetailsAsync(id);
             if (bestStoryDetails == null)
                 throw new ArgumentOutOfRangeException(nameof(id));
