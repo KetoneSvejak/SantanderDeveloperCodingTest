@@ -29,6 +29,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
                 return new BestStory[0];
             var getDetailsForAllStories = bestStories.Take(n).Select(async id => await GetBestStoryDetailsAsync(hackerNewsHttpClient, id));
             var response = await Task.WhenAll(getDetailsForAllStories);
+            var sortedResponse = response.OrderByDescending(s => s.Score).ToArray();
             return response;
         }
 
