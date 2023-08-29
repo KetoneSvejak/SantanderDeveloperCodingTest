@@ -1,6 +1,5 @@
 # How to Run
-- .NET 7.0 is a prerequisite.
-- Build and run like a minimal ASP.NET Core WebAPI project.
+Open in Visual Studio, build and run like a typical ASP.NET Core WebAPI project.
 
 # Assumptions
 1. Even though HackerNews API returns Cache-Control: no-cache header, the requirements implicitly allow the API to return stale results from cache, and then update the cache.
@@ -9,9 +8,7 @@
 4. Using https://github.com/HackerNews/API/tree/master#changed-items-and-profiles to invalidate cached items.
 
 # Enhancements
-1. Fix warnings about non-nullable properties for both classes at DTO folder.
-2. Omit some fields at BestStoryDetails class.
-3. Read documentation of HackerNews API about caching.
-4. Test coverage.
-5. Load testing.
-6. Find out how https://github.com/HackerNews/API/tree/master#changed-items-and-profiles decides the time frame for updated items.
+1. Check what parts of HackerNews API responses can be non-nullable. In current implementation, they are all nullable.
+2. Omit some fields at BestStoryDetails class
+3. Test coverage, including load testing
+4. Find out how https://github.com/HackerNews/API/tree/master#changed-items-and-profiles decides the time frame for updated items.
