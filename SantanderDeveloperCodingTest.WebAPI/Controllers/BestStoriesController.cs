@@ -23,6 +23,10 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
         [HttpGet(Name = "GetBestStories")]
         public async Task<IEnumerable<BestStory>> Get(int n)
         {
+            // https://github.com/HackerNews/API/tree/master#new-top-and-best-stories maximum 500 best stories
+            if (n <= 0 || n > 500)
+                throw new ArgumentOutOfRangeException(nameof(n));
+
             var hackerNewsHttpClient = new HackerNewsHttpClient(_httpClientFactory);
             var bestStories = await hackerNewsHttpClient.GetBestStoriesAsync();
             if (bestStories == null)
