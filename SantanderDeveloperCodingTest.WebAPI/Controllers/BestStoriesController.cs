@@ -61,7 +61,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
                 CommentCount = (bestStoryDetails.Kids == null || bestStoryDetails.Kids.Length <= 0) ? 0 : bestStoryDetails.Kids.Length,
                 PostedBy = bestStoryDetails.By,
                 Score = bestStoryDetails.Score,
-                time = bestStoryDetails.TimeAsDateTime,
+                Time = bestStoryDetails.TimeAsDateTime,
                 Title = bestStoryDetails.Title,
                 Uri = bestStoryDetails.Url
             };
