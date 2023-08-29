@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Memory;
 using SantanderDeveloperCodingTest.HackerNews;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,10 @@ builder.Services.AddHttpClient(nameof(HackerNewsService), c => { c.BaseAddress =
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<IMemoryCache>(new MemoryCache(new MemoryCacheOptions
+{
+    SizeLimit = 10000
+}));
 
 var app = builder.Build();
 
