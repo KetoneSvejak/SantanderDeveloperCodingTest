@@ -45,7 +45,7 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
 
         private async Task<BestStory?> GetBestStoryDetailsAsync(HackerNewsService hackerNewsHttpClient, int id)
         {
-            BestStoryDetails? bestStoryDetails = null;
+            BestStoryDetails? bestStoryDetails;
             if (!_memoryCache.TryGetValue(id, out bestStoryDetails))
             {
                 bestStoryDetails = await hackerNewsHttpClient.GetBestStoryDetailsAsync(id);
