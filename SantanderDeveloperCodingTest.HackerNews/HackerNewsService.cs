@@ -1,6 +1,7 @@
-﻿using SantanderDeveloperCodingTest.WebAPI.DTO;
+﻿using SantanderDeveloperCodingTest.HackerNews.DTO;
+using System.Net.Http.Json;
 
-namespace SantanderDeveloperCodingTest.WebAPI
+namespace SantanderDeveloperCodingTest.HackerNews
 {
     public class HackerNewsService
     {

@@ -1,4 +1,4 @@
-﻿namespace SantanderDeveloperCodingTest.WebAPI.DTO
+﻿namespace SantanderDeveloperCodingTest.HackerNews.DTO
 {
     public class UpdatesResponse
     {

@@ -1,4 +1,4 @@
-﻿namespace SantanderDeveloperCodingTest.WebAPI.DTO
+﻿namespace SantanderDeveloperCodingTest.HackerNews.DTO
 {
     // TODO: perhaps some fields can be ommited to speed up parsing
     public class BestStoryDetails

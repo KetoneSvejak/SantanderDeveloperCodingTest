@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SantanderDeveloperCodingTest.HackerNews;
 using SantanderDeveloperCodingTest.WebAPI.DTO;
 
 namespace SantanderDeveloperCodingTest.WebAPI.Controllers
