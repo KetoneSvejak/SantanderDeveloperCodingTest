@@ -1,9 +1,11 @@
+using SantanderDeveloperCodingTest.HackerNews;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient(nameof(HackerNewsService), c => { c.BaseAddress = new Uri("https://hacker-news.firebaseio.com/v0/"); });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
