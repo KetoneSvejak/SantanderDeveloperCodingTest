@@ -1,4 +1,4 @@
-namespace SantanderDeveloperCodingTest.WebAPI
+namespace SantanderDeveloperCodingTest.WebAPI.DTO
 {
     public class BestStory
     {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SantanderDeveloperCodingTest.WebAPI.DTO;
 
 namespace SantanderDeveloperCodingTest.WebAPI.Controllers
 {
@@ -22,21 +23,30 @@ namespace SantanderDeveloperCodingTest.WebAPI.Controllers
         public async Task<IEnumerable<BestStory>> Get(int n)
         {
             var hackerNewsHttpClient = new HackerNewsHttpClient();
-            var bestStories = await hackerNewsHttpClient.GetBestStories();
+            var bestStories = await hackerNewsHttpClient.GetBestStoriesAsync();
             if (bestStories == null)
                 return new BestStory[0];
-            var random = new Random();
-            var response = bestStories.Take(n).Select(s =>
-             new BestStory
-             {
-                 CommentCount = random.Next(1000),
-                 PostedBy = Path.GetRandomFileName(),
-                 Score = random.Next(1000),
-                 time = DateTime.Now - new TimeSpan(random.Next(1000000)),
-                 Title = Path.GetRandomFileName(),
-                 Uri = "https://" + Path.GetRandomFileName()
-             }).ToArray();
+            var getDetailsForAllStories = bestStories.Take(n).Select(async id => await GetBestStoryDetailsAsync(hackerNewsHttpClient, id));
+            var response = await Task.WhenAll(getDetailsForAllStories);
             return response;
+        }
+
+        private async Task<BestStory> GetBestStoryDetailsAsync(HackerNewsHttpClient hackerNewsHttpClient, int id)
+        {
+            var random = new Random();
+            var bestStoryDetails = await hackerNewsHttpClient.GetBestStoryDetailsAsync(id);
+            if (bestStoryDetails == null)
+                throw new ArgumentOutOfRangeException(nameof(id));
+            var bestStory = new BestStory
+            {
+                CommentCount = (bestStoryDetails.Kids == null || bestStoryDetails.Kids.Length <= 0) ? 0 : bestStoryDetails.Kids.Length,
+                PostedBy =bestStoryDetails.By,
+                Score = bestStoryDetails.Score,
+                time = bestStoryDetails.TimeAsDateTime,
+                Title = bestStoryDetails.Title,
+                Uri = bestStoryDetails.Url
+            };
+            return bestStory;
         }
     }
 }
